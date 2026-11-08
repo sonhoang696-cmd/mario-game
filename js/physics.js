@@ -4,7 +4,7 @@ const GRAVITY = 1800;      // px/s^2
 const MAX_FALL = 900;      // px/s
 
 function moveEntity(e, dt, level) {
-  const res = { hitX: false, hitHead: false };
+  const res = { hitX: false, hitHead: false, headTile: null };
 
   // --- trục X ---
   e.x += e.vx * dt;
@@ -31,21 +31,28 @@ function moveEntity(e, dt, level) {
   r = Math.floor((e.x + e.w - 0.01) / TILE);
   t = Math.floor(e.y / TILE);
   b = Math.floor((e.y + e.h - 0.01) / TILE);
+  const cx = e.x + e.w / 2;
   let done = false;
   for (let ty = t; ty <= b && !done; ty++) {
+    // chọn ô đặc gần tâm nhân vật nhất (để biết đầu đụng trúng ô nào)
+    let hitTx = -1, best = Infinity;
     for (let tx = l; tx <= r; tx++) {
       if (level.isSolid(tx, ty)) {
-        if (e.vy > 0) {
-          e.y = ty * TILE - e.h;
-          e.onGround = true;
-        } else if (e.vy < 0) {
-          e.y = (ty + 1) * TILE;
-          res.hitHead = true;
-        }
-        e.vy = 0;
-        done = true;
-        break;
+        const d = Math.abs(tx * TILE + TILE / 2 - cx);
+        if (d < best) { best = d; hitTx = tx; }
       }
+    }
+    if (hitTx >= 0) {
+      if (e.vy > 0) {
+        e.y = ty * TILE - e.h;
+        e.onGround = true;
+      } else if (e.vy < 0) {
+        e.y = (ty + 1) * TILE;
+        res.hitHead = true;
+        res.headTile = { tx: hitTx, ty };
+      }
+      e.vy = 0;
+      done = true;
     }
   }
   return res;

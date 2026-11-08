@@ -3,15 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mario đơn giản</title>
+  <title>Mario đơn giản 2</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Mario đơn giản</h1>
+  <h1>Mario đơn giản 2</h1>
   <canvas id="game" width="800" height="480"></canvas>
-  <p class="help">Di chuyển: ← → hoặc A D &nbsp;|&nbsp; Nhảy: Space, ↑ hoặc W &nbsp;|&nbsp; Chơi lại: R</p>
+  <p class="help">
+    Di chuyển: ← → hoặc A D &nbsp;|&nbsp; Nhảy: Space, ↑ hoặc W &nbsp;|&nbsp;
+    Tạm dừng: P &nbsp;|&nbsp; Tắt tiếng: M &nbsp;|&nbsp; Chơi lại từ đầu: R
+  </p>
+
+  <!-- Nút cảm ứng (chỉ hiện trên điện thoại / máy tính bảng) -->
+  <div id="touch" class="touch">
+    <div>
+      <button data-key="ArrowLeft" aria-label="Sang trái">◀</button>
+      <button data-key="ArrowRight" aria-label="Sang phải">▶</button>
+    </div>
+    <button data-key="Space" class="jump" aria-label="Nhảy">NHẢY</button>
+  </div>
 
   <!-- Không dùng ES modules để mở trực tiếp bằng file:// vẫn chạy -->
+  <script src="js/audio.js"></script>
   <script src="js/input.js"></script>
   <script src="js/physics.js"></script>
   <script src="js/level.js"></script>

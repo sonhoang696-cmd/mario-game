@@ -1,12 +1,16 @@
 const RUN_SPEED = 230;
 const JUMP_SPEED = 700;
+const SMALL_H = 30;
+const BIG_H = 46;
 
 function createPlayer(spawn) {
   return {
-    x: spawn.x, y: spawn.y, w: 24, h: 30,
+    x: spawn.x, y: spawn.y, w: 24, h: SMALL_H,
     vx: 0, vy: 0,
     onGround: false,
     facing: 1,
+    big: false,
+    invincible: 0,   // thời gian bất tử sau khi bị thương
     coyote: 0,       // cho phép nhảy trễ một chút sau khi rời mép
     jumpBuffer: 0    // nhớ lệnh nhảy bấm sớm một chút trước khi chạm đất
   };
@@ -32,6 +36,7 @@ function updatePlayer(p, dt, level) {
     p.vy = -JUMP_SPEED;
     p.coyote = 0;
     p.jumpBuffer = 0;
+    Sound.play('jump');
   }
   // Thả phím sớm thì nhảy thấp hơn
   if (!Input.jumpHeld() && p.vy < -250) p.vy = -250;
@@ -39,5 +44,5 @@ function updatePlayer(p, dt, level) {
   // Trọng lực
   p.vy = Math.min(p.vy + GRAVITY * dt, MAX_FALL);
 
-  moveEntity(p, dt, level);
+  return moveEntity(p, dt, level);
 }
