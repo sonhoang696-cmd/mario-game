@@ -1,0 +1,26 @@
+{
+  "name": "mario-game",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Mario đơn giản 2 - game canvas + Cloudflare Workers + D1 (bảng xếp hạng)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:worker": "vitest run --project worker",
+    "test:e2e": "playwright test",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.6.0",
+    "@playwright/test": "^1.65.0",
+    "vitest": "~4.1.12",
+    "wrangler": "^4.158.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
