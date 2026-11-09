@@ -16,8 +16,7 @@
     {
       "binding": "DB",
       "database_name": "mario-game-db",
-      // THAY bằng ID thật sau khi chạy: npx wrangler d1 create mario-game-db
-      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "database_id": "78386eca-3b0b-4242-8f1a-139b14a26f63",
       "migrations_dir": "migrations"
     }
   ],
